@@ -6,7 +6,7 @@ namespace ChatCleaner
     public class ChatCleaner : BasePlugin
     {
         public override string ModuleName => "ChatCleaner";
-        public override string ModuleVersion => "1.0.1";
+        public override string ModuleVersion => "1.0.2";
         public override string ModuleAuthor => "unfortunate";
 
         private static readonly string[] MoneyMessages = {
