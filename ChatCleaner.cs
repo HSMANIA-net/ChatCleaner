@@ -9,7 +9,8 @@ namespace ChatCleaner
         public override string ModuleVersion => "1.0.2";
         public override string ModuleAuthor => "unfortunate";
 
-        private static readonly string[] MoneyMessages = {
+        private static readonly string[] MoneyMessages =
+        {
             "Player_Cash_Award_Kill_Teammate",
             "Player_Cash_Award_Killed_VIP",
             "Player_Cash_Award_Killed_Enemy_Generic",
@@ -65,24 +66,27 @@ namespace ChatCleaner
             "Team_Cash_Award_no_income",
             "Team_Cash_Award_no_income_suicide",
             "Team_Cash_Award_Generic",
-            "Team_Cash_Award_Custom"
+            "Team_Cash_Award_Custom",
         };
 
         public override void Load(bool hotReload)
         {
-            HookUserMessage(124, um =>
-            {
-                for (int i = 0; i < um.GetRepeatedFieldCount("param"); i++)
+            HookUserMessage(
+                124,
+                um =>
                 {
-                    string message = um.ReadString("param", i);
-                    if (MoneyMessages.Any(message.Contains))
+                    for (int i = 0; i < um.GetRepeatedFieldCount("param"); i++)
                     {
-                        return HookResult.Stop;
+                        string message = um.ReadString("param", i);
+                        if (MoneyMessages.Any(message.Contains))
+                        {
+                            return HookResult.Stop;
+                        }
                     }
-                }
-                return HookResult.Continue;
-            },
-            HookMode.Pre);
+                    return HookResult.Continue;
+                },
+                HookMode.Pre
+            );
         }
 
         [GameEventHandler(HookMode.Pre)]
@@ -99,6 +103,5 @@ namespace ChatCleaner
             info.DontBroadcast = true;
             return HookResult.Continue;
         }
-
     }
 }
